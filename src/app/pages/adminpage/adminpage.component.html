@@ -1,0 +1,70 @@
+
+
+<div class="container-fluid">
+  <div>
+    <table class="table table-hover" style="border: 2px solid white;">
+      <thead class="tableheading-data">
+        <th class="table-header">Plant Name</th>
+        <th class="table-header">Plant</th>
+        <th class="table-header">Mill</th>
+        <th class="table-header">Paramter</th>
+        <th class="table-header">Descriptions</th>
+        <th class="table-header">Close Loop</th>
+        <th class="table-header">Action</th>
+        <!-- <th></th> -->
+      </thead>
+      <tbody *ngIf="!noRecordfound">
+        <ng-container *ngFor="let record of tableRecord">
+          <tr *ngFor="let result of record.result; let i=index" [ngStyle]="i === record.result.length-1 || i===0? {'border-bottom': '2px solid white'} : {}">
+            <td class="tabledata-center" [ngClass]="i==0 ? 'tableFirstRow':{}">{{ result['Plant Name'] }}</td>
+              <td class="tabledata-center" [ngClass]="i==0 ? 'tableFirstRow':{}">{{ result.plant }}</td>
+              <td class="tabledata-center" [ngClass]="i==0 ? 'tableFirstRow':{}">{{ result.mill }}</td>
+              <td class="tabledata-center" [ngClass]="i==0 ? 'tableFirstRow':{}">
+                {{
+                   result.parameters===""? 'Activate Closed Loop': result.parameters
+                }}
+              </td>
+              <td class="tabledata-center" [ngClass]="i==0 ? 'tableFirstRow':{}">{{ result.Description }}</td>
+              <td class="tabledata-center" [ngClass]="i==0 ? 'tableFirstRow':{}">
+                <mat-radio-group [(ngModel)]="result['Close Loop Flag']">
+                    <mat-radio-button
+                      [value]="true"
+                      [checked]="result['Close Loop Flag']===true"
+                      [disabled]="record.result[0]['Close Loop Flag']===false && i >=1"
+                      (change)="handleFlagChange($event,result,record.result)"
+                      >Yes
+                    </mat-radio-button>
+                    <mat-radio-button
+                      [value]="false"
+                      [checked]="result['Close Loop Flag']===false"
+                      [disabled]="record.result[0]['Close Loop Flag']===false"
+                      (change)="handleFlagChange($event,result,record.result)"
+                      >No</mat-radio-button
+                    >
+  
+                  </mat-radio-group>
+              </td>
+              <td *ngIf="i === 0" class="tablebtn-submit" [ngClass]="i==0 ? 'tableFirstRow':{}">
+                <button class="btn admin-btn-submit" (click)="handleSubmitKiln()" [disabled]="submitButtonsDisabled[result.plant][result.mill]">
+                  Submit
+                </button>
+              </td>
+            
+          </tr>
+        </ng-container>
+      </tbody>
+      <tbody *ngIf="noRecordfound">
+        <tr>
+            <td colspan="7" *ngIf="noCloseLoopData">
+                <div class="showloading">
+                    <app-apploader></app-apploader>
+                </div>
+            </td>
+            <td colspan="7" *ngIf="!noCloseLoopData">
+            <p class="data-not-found">{{ dataNotFound ? 'No Record Found for ' + jsonKiln.Plant_Code : 'No Record Found' }}</p>
+        </td>
+        </tr>
+    </tbody>
+    </table>
+  </div>
+</div>

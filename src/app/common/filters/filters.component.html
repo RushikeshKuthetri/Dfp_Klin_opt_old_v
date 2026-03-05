@@ -1,0 +1,70 @@
+<form #myForm="ngForm">
+
+
+<div class="card card_apply filtersBox mb-3">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="d-flex flex-column">
+            <label class="mb-2">Plant</label>
+            <select class="form-select" name="filtersData.Plant_Code" [(ngModel)]="filtersData.Plant_Code" (change)="getMillsBasesPlant();getPlantname(filtersData.Plant_Code)" required>
+              <option value='null' disabled>--Select Plant Here --</option>
+              <option *ngFor="let item of plantData" [value]="item.value">{{item.viewValue}}</option>
+            </select>
+          </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="d-flex flex-column">
+            <label class="mb-2">Kiln No </label>
+            <select class="form-select" name="filtersData.Mill" (change)="getGradeBasesPlantMills()" [(ngModel)]="filtersData.Mill" required>
+              <option [value]='null' disabled>--Select Kiln Here --</option>
+              <option *ngFor="let item of millsData" [value]="item.value">{{item.viewValue}}</option>
+            </select>
+          </div>        
+      </div>
+      <div class="col-sm-2">
+
+        
+        <div class="d-flex flex-column" *ngIf="type=='rangepicker'">
+            <label class="mb-2">Date Range </label>
+            <app-datetimepicker [type]='type' *ngIf="filtersData" [selectedRange]='filtersData.dateRange' (dateTimeRange)="onSelectDateRange($event)" class="m2-10"></app-datetimepicker>
+        </div>
+        <div class="d-flex flex-column" *ngIf="type=='datepicker'">
+          <label class="mb-2">Date </label>
+          <!-- <span class="filtersDate">
+            {{filtersDate| dateString}}
+          </span> -->
+          <app-datetimepicker [type]='type'  *ngIf="filtersData" [date_time]='filtersData.dateTime' (dateTime)="onSelectDatetime($event)" class="m2-10"></app-datetimepicker>
+        </div>
+        <div class="d-flex flex-column" *ngIf="type=='datepicker1'">
+          <label class="mb-2">Date </label>
+          <!-- <span class="filtersDate">
+            {{filtersDate| dateString}}
+          </span> -->
+          <app-datetimepicker [type]='type' *ngIf="filtersData" [date_times]='filtersData.dateTime' (dateTimes)="onSelectDatetimes($event)" class="m2-10"></app-datetimepicker>
+        </div>
+        
+      </div>
+      <div class="col-3 px-2 content-center" style="margin-top: 10px;">
+        <button type="button" class="btn btnSubmit" [disabled]="!myForm.valid || filtersData.Plant_Code==='null' || filtersData.Mill==='null'" (click)="onSubmit()">Submit</button>
+      </div>
+    </div>
+</div>
+</form>
+
+<div class="card card_apply filtersBox mb-2" *ngIf="showRange">
+  <div class="row">
+    <div class="col-5">
+      <div class="d-flex flex-column h-100">
+        <label class="mb-2">Select Desired Blaine Range</label>
+        <mat-radio-group  [(ngModel)]="selectedBlaineRange">
+          <mat-radio-button *ngFor="let item of rangeData" [value]="item" [checked]="item.Active">{{item.BLAIN_MIN}}-{{item.BLAIN_MAX}}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="col-6 px-2 content-center">
+      <button type="button" class="btn btnSubmit" (click)="updateBlaineRange()">Update</button>
+    </div>
+  </div>
+</div>
+
+
