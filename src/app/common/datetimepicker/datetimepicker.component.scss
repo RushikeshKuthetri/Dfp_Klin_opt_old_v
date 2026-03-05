@@ -1,19 +1,17 @@
-.dateTimebox{
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    input{
-    min-height: 6vh;
-    border: 1px solid #efefef;
-    outline: none;
-    width: 100%;
-    padding: 3px;
-    margin-right: 11px;
-    font-size: 15px;
-    }
+input.date-input::-webkit-calendar-picker-indicator {
+  opacity: 0.5;
+  cursor: pointer;
+  filter: var(--calendar-icon-filter, none);
 }
-    // .cdk-overlay-pane{
-    //     top: 184.5px !important;
-    //     left: 503.656px !important;
-    //     transform: translateY(-176px) !important;
-    // }
+
+input.date-input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+input.date-input::-webkit-datetime-edit {
+  color: var(--search-placeholder);
+}
+
+input.date-input::-webkit-datetime-edit-fields-wrapper {
+  padding: 0;
+}

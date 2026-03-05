@@ -1,0 +1,9 @@
+select option {
+  background-color: var(--input-enable-bg);
+  color: var(--select-input-value);
+  font-size: 13px;
+}
+
+select option:hover {
+  background-color: var(--select-input-hover);
+}

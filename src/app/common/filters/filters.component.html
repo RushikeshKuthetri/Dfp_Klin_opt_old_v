@@ -1,54 +1,81 @@
-<form #myForm="ngForm">
+<form #myForm="ngForm" class="w-full rounded-[18px]  px-6 py-2">
+  <div class="grid grid-cols-1 gap-x-6 gap-y-2 items-center md:grid-cols-2 xl:grid-cols-3 justify-center">
+    <div class="flex flex-col">
+      <label class="mb-2 text-[13px] font-semibold uppercase tracking-[0.02em] text-[#8791a0]">
+        PLANT <span class="text-[#ff4d4f]">*</span>
+      </label>
+      <select class="w-full min-h-[29px] px-3 text-[13px] rounded-lg 
+         bg-[var(--input-enable-bg)] 
+         border border-[var(--input-enable-border)]
+         text-[var(--select-input-value)]
+         outline-none
+         focus:border-[#888888]
+         cursor-pointer
+         transition-all duration-200" name="filtersData.Plant_Code" [(ngModel)]="filtersData.Plant_Code"
+        (change)="getMillsBasesPlant();getPlantname(filtersData.Plant_Code)" required>
+        <option value="null" disabled>Select Plant</option>
 
+        <option *ngFor="let item of plantData" [value]="item.value">
+          {{item.viewValue}}
+        </option>
+      </select>
+    </div>
 
-<div class="card card_apply filtersBox mb-3">
-    <div class="row">
-      <div class="col-sm-2">
-        <div class="d-flex flex-column">
-            <label class="mb-2">Plant</label>
-            <select class="form-select" name="filtersData.Plant_Code" [(ngModel)]="filtersData.Plant_Code" (change)="getMillsBasesPlant();getPlantname(filtersData.Plant_Code)" required>
-              <option value='null' disabled>--Select Plant Here --</option>
-              <option *ngFor="let item of plantData" [value]="item.value">{{item.viewValue}}</option>
-            </select>
-          </div>
-      </div>
-      <div class="col-sm-2">
-        <div class="d-flex flex-column">
-            <label class="mb-2">Kiln No </label>
-            <select class="form-select" name="filtersData.Mill" (change)="getGradeBasesPlantMills()" [(ngModel)]="filtersData.Mill" required>
-              <option [value]='null' disabled>--Select Kiln Here --</option>
-              <option *ngFor="let item of millsData" [value]="item.value">{{item.viewValue}}</option>
-            </select>
-          </div>        
-      </div>
-      <div class="col-sm-2">
+    <div class="flex flex-col">
+      <label class="mb-2 text-[13px] font-semibold uppercase tracking-[0.02em] text-[#8791a0]">
+        KILN NO <span class="text-[#ff4d4f]">*</span>
+      </label>
+      <select class="w-full min-h-[29px] px-3 text-[13px] rounded-lg
+         bg-[var(--input-enable-bg)]
+         border border-[var(--input-enable-border)]
+         text-[var(--select-input-value)]
+         outline-none
+         focus:border-[#888888]
+         transition-all duration-200
+         cursor-pointer" name="filtersData.Mill" [(ngModel)]="filtersData.Mill" (change)="getGradeBasesPlantMills()"
+        required>
+        <option value="null" disabled>Select Kiln no</option>
 
-        
-        <div class="d-flex flex-column" *ngIf="type=='rangepicker'">
-            <label class="mb-2">Date Range </label>
-            <app-datetimepicker [type]='type' *ngIf="filtersData" [selectedRange]='filtersData.dateRange' (dateTimeRange)="onSelectDateRange($event)" class="m2-10"></app-datetimepicker>
-        </div>
-        <div class="d-flex flex-column" *ngIf="type=='datepicker'">
-          <label class="mb-2">Date </label>
-          <!-- <span class="filtersDate">
-            {{filtersDate| dateString}}
-          </span> -->
-          <app-datetimepicker [type]='type'  *ngIf="filtersData" [date_time]='filtersData.dateTime' (dateTime)="onSelectDatetime($event)" class="m2-10"></app-datetimepicker>
-        </div>
-        <div class="d-flex flex-column" *ngIf="type=='datepicker1'">
-          <label class="mb-2">Date </label>
-          <!-- <span class="filtersDate">
-            {{filtersDate| dateString}}
-          </span> -->
-          <app-datetimepicker [type]='type' *ngIf="filtersData" [date_times]='filtersData.dateTime' (dateTimes)="onSelectDatetimes($event)" class="m2-10"></app-datetimepicker>
-        </div>
-        
+        <option *ngFor="let item of millsData" [value]="item.value">
+          {{item.viewValue}}
+        </option>
+      </select>
+    </div>
+
+    <div class="flex flex-col">
+      <div *ngIf="type=='rangepicker'">
+        <label class="mb-2 text-[13px] font-semibold uppercase tracking-[0.02em] text-[#8791a0]">
+          DATE RANGE <span class="text-[#ff4d4f]">*</span>
+        </label>
+        <app-datetimepicker class="block w-full" [type]='type' *ngIf="filtersData"
+          [selectedRange]='filtersData.dateRange' (dateTimeRange)="onSelectDateRange($event)"></app-datetimepicker>
       </div>
-      <div class="col-3 px-2 content-center" style="margin-top: 10px;">
-        <button type="button" class="btn btnSubmit" [disabled]="!myForm.valid || filtersData.Plant_Code==='null' || filtersData.Mill==='null'" (click)="onSubmit()">Submit</button>
+
+      <div *ngIf="type=='datepicker'">
+        <label class="mb-2 text-[13px] font-semibold uppercase tracking-[0.02em] text-[#8791a0]">
+          DATE <span class="text-[#ff4d4f]">*</span>
+        </label>
+        <app-datetimepicker class="block w-full" [type]='type' *ngIf="filtersData" [date_time]='filtersData.dateTime'
+          (dateTime)="onSelectDatetime($event)"></app-datetimepicker>
+      </div>
+
+      <div *ngIf="type=='datepicker1'">
+        <label class="mb-2 text-[13px] font-semibold uppercase tracking-[0.02em] text-[#8791a0]">
+          DATE <span class="text-[#ff4d4f]">*</span>
+        </label>
+        <app-datetimepicker class="block w-full" [type]='type' *ngIf="filtersData" [date_times]='filtersData.dateTime'
+          (dateTimes)="onSelectDatetimes($event)"></app-datetimepicker>
       </div>
     </div>
-</div>
+
+    <div class="col-span-1 mt-1 flex justify-center md:col-span-2 xl:col-span-3">
+      <button type="button"
+        class="px-4 py-1 rounded-md border border-[var(--button-border)] bg-[var(--submit-button-bg)] hover:bg-[var(--submit-button-hover-bg)] text-[#111111] font-medium transition-all duration-200 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed active:scale-95"
+        [disabled]="!myForm.valid || filtersData.Plant_Code==='null' || filtersData.Mill==='null'" (click)="onSubmit()">
+        Submit
+      </button>
+    </div>
+  </div>
 </form>
 
 <div class="card card_apply filtersBox mb-2" *ngIf="showRange">
@@ -56,8 +83,9 @@
     <div class="col-5">
       <div class="d-flex flex-column h-100">
         <label class="mb-2">Select Desired Blaine Range</label>
-        <mat-radio-group  [(ngModel)]="selectedBlaineRange">
-          <mat-radio-button *ngFor="let item of rangeData" [value]="item" [checked]="item.Active">{{item.BLAIN_MIN}}-{{item.BLAIN_MAX}}</mat-radio-button>
+        <mat-radio-group [(ngModel)]="selectedBlaineRange">
+          <mat-radio-button *ngFor="let item of rangeData" [value]="item"
+            [checked]="item.Active">{{item.BLAIN_MIN}}-{{item.BLAIN_MAX}}</mat-radio-button>
         </mat-radio-group>
       </div>
     </div>
@@ -66,5 +94,3 @@
     </div>
   </div>
 </div>
-
-

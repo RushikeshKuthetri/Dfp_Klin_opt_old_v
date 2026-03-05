@@ -11,6 +11,7 @@ body {
   --title: #AF6A1C;
   --bg-color: #F6F5F3;
   --bg-header: #FE8F12;
+  --accent-color: #2563eb;
   --header-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
   --leftdrawer-text:#404242;
   --bg-leftdrawer: #F2F2F2;
@@ -61,6 +62,7 @@ body {
   --chart-cards-bg:#FFFFFF;
   --chart-options-bg:#A2B3B2;
   --tags-bottom-border:#D7C8C8
+  
 
 }
  
@@ -68,7 +70,7 @@ body {
   --text-color: #F0F0F0;
   --title: #FFC07A;
   --bg-color: #1E1E1F;
- 
+  --accent-color: #60a5fa;
   --header-shadow: 0 2px 6px rgba(255, 255, 255, 0.25);
   --leftdrawer-text:#B7C5C5;
   --bg-leftdrawer: #181919;
@@ -800,5 +802,26 @@ body {
   animation: highcharts-loading-spin 0.8s linear infinite;
   margin-left: 8px;
   vertical-align: middle;
+}
+
+/* Modal theme + width */
+.modal-content {
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--form-border) !important;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+  border-color: var(--form-border) !important;
+}
+
+.recommendation-modal .modal-dialog {
+  width: min(96vw, 1700px) !important;
+  max-width: min(96vw, 1700px) !important;
+  margin: 1rem auto !important;
 }
 

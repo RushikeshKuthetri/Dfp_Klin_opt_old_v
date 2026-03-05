@@ -1,5 +1,5 @@
-<div  class="row ng-star-inserted">
-    <div  class="col-12">
+<div class="row ng-star-inserted">
+    <!-- <div  class="col-12">
         <mat-grid-list  cols="3"
             rowheight="1:0.950" class="mat-grid-list"
             style="padding-bottom: calc(4 * ((31.6667% - 0.666667px) * 1) + 0px + 3px);">
@@ -22,12 +22,12 @@
                             <ngx-gauge [size]='150' type="arch" [thick]="14" [value]="item.Value.toFixed(2)"  [max]="item.Value+250" cap="round" 
                         [append]="item.unitofmeasurement" [foregroundColor]="item.foregroundColor" backgroundColor="#fff" style="width: 150px; height: 93.2571px; color: #000;" ></ngx-gauge>
                         </mat-card>
-                        <!-- </a> -->
+                        </a>
                     </div>
                 </mat-grid-tile>
             </div>
-        </mat-grid-list>
-        <!-- <mat-grid-list  *ngIf="type=='resultant'" cols="4"
+        </mat-grid-list> -->
+    <!-- <mat-grid-list  *ngIf="type=='resultant'" cols="4"
             rowheight="1:0.950" class="mat-grid-list"
             style="padding-bottom: calc(4 * ((31.6667% - 0.666667px) * 1) + 0px + 3px);">
             <div>
@@ -52,12 +52,97 @@
                 </mat-grid-tile>
             </div>
         </mat-grid-list> -->
+    <!-- </div>
+</div> -->
+
+
+    <div class="w-full">
+        <div class="w-full">
+
+            <mat-grid-list cols="3" rowHeight="1:0.950" class="w-full">
+
+                <mat-grid-tile *ngFor="let item of datasorce; let i=index" class="cursor-pointer p-2"
+                    (dblclick)="openModal(secondsDataChart,item.Tag_Id,item.Display_Name,item.unitofmeasurement)">
+
+                    <!-- Card -->
+                    <mat-card
+                        class="bg-[var(--card-bg)] border border-[var(--form-border)] rounded-xl shadow-sm text-center px-4 pt-2 pb-0 hover:shadow-md transition"
+                        [title]="item.title">
+
+                        <!-- Header -->
+                        <mat-card-header class="flex items-center justify-center mb-1">
+                            <mat-card-title class="text-[13px] font-semibold text-[var(--text-color)] text-center">
+                                {{item.Display_Name ? item.Display_Name : item.Generic_Name}}
+                            </mat-card-title>
+                        </mat-card-header>
+
+                        <!-- Gauge -->
+                        <div class="flex justify-center my-2">
+                            <ngx-gauge [size]="150" type="arch" [thick]="14" [value]="item.Value.toFixed(2)"
+                                [max]="item.Value+250" cap="round" [append]="item.unitofmeasurement"
+                                [foregroundColor]="item.foregroundColor" backgroundColor="#fff"
+                                class="w-[150px] h-[96px]">
+                            </ngx-gauge>
+                        </div>
+
+                    </mat-card>
+
+                </mat-grid-tile>
+
+            </mat-grid-list>
+
+        </div>
     </div>
-</div>
 
 
-<ng-template class="owl-control" #secondsDataChart>
-    <div class="modal-header">
+    <ng-template #secondsDataChart>
+
+        <div class="flex items-center justify-between border-b border-[var(--form-border)] pb-2 mb-4">
+
+            <h4 class="text-[16px] font-semibold text-[var(--text-color)]">
+                History Data for {{display_name}}
+            </h4>
+
+            <button class="text-[var(--text-color)] hover:text-red-500 text-xl flex items-center justify-center"
+                (click)="modalRef?.hide();closeModal()">
+                <span class="material-symbols-outlined text-[20px]">
+                    close
+                </span>
+            </button>
+
+        </div>
+
+        <div>
+
+            <!-- Date Range -->
+            <div class="mb-4">
+
+                <input
+                    class="w-full px-3 py-1 text-[13px] rounded-lg border border-[var(--input-enable-border)] bg-[var(--input-enable-bg)] text-[var(--select-input-value)] focus:outline-none focus:ring-1 focus:ring-[#888]"
+                    [owlDateTimeTrigger]="dt16" [owlDateTime]="dt16" [(ngModel)]="selectRange"
+                    (dateTimeChange)="onselectDateTimeRange($event)" [selectMode]="'range'"
+                    placeholder="Select Date Range" [max]="max">
+
+                <owl-date-time #dt16></owl-date-time>
+
+            </div>
+
+            <!-- Loader -->
+            <div *ngIf="loadchart" class="flex justify-center py-6">
+                <app-apploader></app-apploader>
+            </div>
+
+            <!-- Chart -->
+            <app-line-chart *ngIf="chartresult" [dateTimeData]="dateTimedata" [seriesData]="seriesData"
+                [displayName]="display_name" [unitMeasure]="unit_measure">
+            </app-line-chart>
+
+        </div>
+
+    </ng-template>
+
+    <!-- <ng-template class="owl-control" #secondsDataChart> -->
+    <!-- <div class="modal-header">
       <h4 class="modal-title pull-left">History Data for {{display_name}}</h4>
       <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide();closeModal()">
         <span aria-hidden="true" class="visually-hidden">&times;</span>
@@ -69,7 +154,7 @@
                [selectMode]="'range'" placeholder="Select Date Range" [max]="max">
             <owl-date-time #dt16 class="xyzz"></owl-date-time>
        
-    </div>
+    </div> -->
     <!-- <div class="row">
         <div class="col-md-12">
             <div class="chart-line mt-2">
@@ -77,11 +162,11 @@
             </div>
         </div>
     </div> -->
-    <app-apploader class="d-flex justify-content-center" *ngIf="loadchart">
+    <!-- <app-apploader class="d-flex justify-content-center" *ngIf="loadchart">
         <div class="d-flex justify-content-center">
             Loading
         </div>
     </app-apploader>
       <app-line-chart *ngIf="chartresult" [dateTimeData]="this.dateTimedata" [seriesData]="this.seriesData" [displayName]="display_name" [unitMeasure]="unit_measure"></app-line-chart>
-    </div>
-  </ng-template>
+    </div> -->
+    <!-- </ng-template> -->
