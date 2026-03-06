@@ -5,7 +5,7 @@
   </h5> 
 
   <!-- input filters plant ,kln no and date picker -->
-  <div class="rounded-xl border border-[var(--form-border)] px-4 py-3 mb-4" *ngIf="payload">
+  <div class="rounded-xl border border-[var(--form-border)] px-4 py-3 mb-2" *ngIf="payload">
     <app-filters
       type="rangepicker"
       [filtersData]="payload"
@@ -26,7 +26,7 @@
     <div *ngIf="!flags.showLoader">
 
     
-      <div class="flex items-center justify-end mb-4" *ngIf="equipmentDataSource.length !== 0">
+      <div class="flex items-center justify-end mb-2" *ngIf="equipmentDataSource.length !== 0">
 
         <div class="text-[var(--text-color)] flex items-center gap-4 justify-center rounded-md">
           <mat-paginator
@@ -42,7 +42,7 @@
 
       
       <div
-        class="overflow-x-auto rounded-lg border border-[var(--form-border)]"
+        class="overflow-x-auto  rounded-lg border border-[var(--form-border)] max-h-[470px] "
         *ngIf="equipmentDataSource.length !== 0"
       >
 
@@ -51,7 +51,7 @@
           matSort
           (matSortChange)="sortData($event)"
           [dataSource]="dataSource"
-          class="min-w-full"
+          class="min-w-full overflow-y-auto"
         >
 
           <ng-container
@@ -81,8 +81,8 @@
           <!-- Header -->
           <tr
             mat-header-row
-            *matHeaderRowDef="keysList"
-            class="!bg-orange-400 text-black"
+             *matHeaderRowDef="keysList; sticky: true"
+            class="!bg-orange-400 text-black "
           ></tr>
 
 

@@ -404,20 +404,20 @@
 
 <!-- </ng-template> -->
 
-<ng-template #recommedationtemplate class="w-full  bg-[var(--card-bg)]">
+<ng-template #recommedationtemplate>
 
-<div class="max-w-[1700px] w-full rounded-xl shadow-lg bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--form-border)]">
+<div class=" w-full rounded-xl shadow-lg bg-[var(--card-bg)] text-[var(--text-color)] border border-[var(--form-border)]">
 
   <div class="flex items-center justify-between px-6 py-4 bg-[var(--card-bg)] border-b border-[var(--form-border)]">
 
-    <h4 class="text-lg font-semibold text-[var(--text-color)]">
+    <h4 class="text-lg font-semibold text-[var(--title)]">
       Acknowledge Recommendation ({{recommendationDate ? recommendationDate : ''}})
     </h4>
 
     <div class="flex gap-3">
 
       <button
-        class="px-4 py-1 rounded-md bg-orange-500 hover:bg-orange-600 text-sm font-medium text-white transition"
+        class="px-4 py-1 rounded-md bg-orange-500 hover:bg-orange-600 text-sm font-medium text-white transition cursor-pointer"
         (click)="updateRecommendation()"
         [hidden]="recommendationDataSource?.length===0"
       >
@@ -425,7 +425,7 @@
       </button>
 
       <button
-        class="px-4 py-1 rounded-md border border-[var(--form-border)] text-[var(--text-color)] hover:bg-[var(--table-hover)] transition"
+        class="px-4 py-1 rounded-md border border-[var(--form-border)] text-[var(--text-color)] hover:bg-[var(--table-hover)] transition cursor-pointer"
         (click)="modalRef?.hide();closeRecomPop()"
       >
         Close
@@ -438,7 +438,7 @@
 
   <div class="p-6 w-full bg-[var(--card-bg)]">
 
-    <div class="w-full overflow-x-auto rounded-xl border border-[var(--form-border)]">
+    <div class="w-full overflow-x-auto overflow-y-auto rounded-xl border border-[var(--form-border)]">
 
       <table class="w-full min-w-[900px] border-collapse bg-[var(--card-bg)]">
 
@@ -586,7 +586,7 @@
 
   <div class="flex items-center bg-[var(--card-bg)] justify-between px-6 py-4 border-b border-[var(--form-border)]">
 
-    <h4 class="text-lg font-semibold text-[var(--text-color)]">
+    <h4 class="text-lg font-semibold text-[var(--title)]">
       Equipment Failure List ({{equipmentDate ? equipmentDate : ''}})
     </h4>
 
@@ -595,7 +595,7 @@
 
   <div class="p-6 bg-[var(--card-bg)]">
 
-    <div class="w-full overflow-x-auto rounded-xl bg-[var(--card-bg)] border border-[var(--form-border)]">
+    <div class="w-full overflow-x-auto overflow-y-auto rounded-xl bg-[var(--card-bg)] border border-[var(--form-border)]">
 
       <table class="w-full min-w-[800px] border-collapse bg-[var(--card-bg)]">
 

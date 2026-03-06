@@ -58,7 +58,7 @@
 
      
       <div
-        class="overflow-x-auto rounded-lg border border-[var(--form-border)]"
+        class="overflow-x-auto  rounded-lg border border-[var(--form-border)]"
         *ngIf="disturbanceDataSource.length !== 0"
       >
 
@@ -67,7 +67,7 @@
           matSort
           (matSortChange)="sortData($event)"
           [dataSource]="dataSource"
-          class="min-w-full"
+          class="min-w-full overflow-y-auto"
         >
 
         

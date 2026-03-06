@@ -536,7 +536,7 @@ export class SystemAnlysisComponent {
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template,{
-      class: 'recommendation-modal'
+      class: 'recommendation-modal modal-xl'
     });
 
     // console.log(this.modalService.getModalsCount());
