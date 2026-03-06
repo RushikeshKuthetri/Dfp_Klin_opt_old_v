@@ -1,145 +1,255 @@
+<div class=" text-[var(--text-color)]">
 
-<div class="container-fluid">
-  <!-- <app-filters
+
+  <app-filters
     type="rangepicker"
     [filtersData]="payload"
     [showRange]="false"
     *ngIf="payload"
     (filterData)="onChangeFilter($event)"
-  ></app-filters> -->
-  <div>
-    <table class="table table-hover" style="border: 2px solid white">
-      <thead class="controlRange-table-heading">
-        <tr>
-          <th *ngFor="let heading of tableHeader" class="controlRange-table-header">{{heading}}</th>
-          <!-- <th class="controlRange-table-header">Sr No</th>
-          <th class="controlRange-table-header">Plant Code</th>
-          <th class="controlRange-table-header">Plant</th>
-          <th class="controlRange-table-header">Kiln</th>
-          <th class="controlRange-table-header">IOT Tag ID</th>
-          <th class="controlRange-table-header">Step Size Min</th>
-          <th class="controlRange-table-header">Step Size Max</th>
-          <th class="controlRange-table-header">Operation Min</th>
-          <th class="controlRange-table-header">Operation Max</th>
-          <th class="controlRange-table-header">Failure Min</th>
-          <th class="controlRange-table-header">Failure Max</th>
-          <th class="controlRange-table-header">Action</th> -->
-        </tr>
-      </thead>
-      <tbody *ngIf="!noRecordfound">
-        <tr *ngFor="let item of iotData; let i = index">
-          <td class="controlRange-tableBody-data">{{ i + 1 }}</td>
-          <td class="controlRange-tableBody-data">{{item.Plant_Full_Name}}</td>
-          <!-- <td class="controlRange-tableBody-data">{{ item.IoT_Tag_Id }}</td> -->
-          <td class="controlRange-tableBody-data">{{ item.Parameter_Name }}</td>
-          <td class="controlRange-tableBody-data">
-            <span *ngIf="!item.editMode">{{ item.Step_Size_Min }}</span>
-            <input
-              *ngIf="item.editMode"
-              type="text"
-              [(ngModel)]="item.Step_Size_Min"
-              class="form-control"
-              (input)="validateMinValue(item)"
-            />
-            <div *ngIf="item.errorStepMinMessage" class="error-message">{{ item.errorStepMinMessage }}</div>
-          </td>
-          <td class="controlRange-tableBody-data">
-            <span *ngIf="!item.editMode">{{ item.Step_Size_Max }}</span>
-            <input
-              *ngIf="item.editMode"
-              type="text"
-              [(ngModel)]="item.Step_Size_Max"
-              class="form-control"
-              (input)="validateMaxValue(item)"
-            />
-            <div *ngIf="item.errorStepMaxMessage" class="error-message">{{ item.errorStepMaxMessage }}</div>
-          </td>
-          <td class="controlRange-tableBody-data">
-            <span *ngIf="!item.editMode">{{ item.Operating_Min }}</span>
-            <input
-              *ngIf="item.editMode"
-              type="text"
-              [(ngModel)]="item.Operating_Min"
-              class="form-control"
-              (input)="validateOptMinValue(item)"
-            />
-            <div *ngIf="item.errorOpMinMessage" class="error-message">{{ item.errorOpMinMessage }}</div>
-          </td>
-          <td class="controlRange-tableBody-data">
-            <span *ngIf="!item.editMode">{{ item.Operating_Max }}</span>
-            <input
-              *ngIf="item.editMode"
-              type="text"
-              [(ngModel)]="item.Operating_Max"
-              class="form-control"
-              (input)="validateOptMaxValue(item)"
-            />
-            <div *ngIf="item.errorOpMaxMessage" class="error-message">{{ item.errorOpMaxMessage }}</div>
-          </td>
-          <td class="controlRange-tableBody-data">
-            <span *ngIf="!item.editMode">{{ item.Failure_Min }}</span>
-            <input
-              *ngIf="item.editMode"
-              type="text"
-              [(ngModel)]="item.Failure_Min"
-              class="form-control"
-              (input)="validateFailMinValue(item)"
-            />
-            <div *ngIf="item.errorFminMessage" class="error-message">{{ item.errorFminMessage }}</div>
-          </td>
-          <td class="controlRange-tableBody-data">
-            <span *ngIf="!item.editMode">{{ item.Failure_Max }}</span>
-            <input
-              *ngIf="item.editMode"
-              type="text"
-              [(ngModel)]="item.Failure_Max"
-              class="form-control"
-              (input)="validateFailMaxValue(item)"
-            />
-            <div *ngIf="item.errorFmaxMessage" class="error-message">{{ item.errorFmaxMessage }}</div>
-          </td>
-          <td class="controlRange-tableBody-data">
-            <button
-              *ngIf="!item.editMode"
-              class="btn btn-save"
-              (click)="toggleEditMode(item)"
-            >
-              Edit
-            </button>
-            <div *ngIf="item.editMode" class="controlRange-tableBody-data">
-              <button
-                (click)="saveChanges(item)"
-                class="btn btn-save"
-                style="margin-right: 2px; margin-bottom: 3px"
-                [disabled]="!item.valid"
+  ></app-filters>
+
+  <div class="max-w-7xl mx-auto px-2 mt-4">
+
+   
+    <div
+      class="bg-[var(--card-bg)]
+      rounded-2xl
+      border border-[var(--form-border)]
+      shadow-sm
+      overflow-hidden"
+    >
+
+      <div class="overflow-x-auto max-h-[250px] ">
+
+        <table class="w-full text-sm  overflow-y-auto">
+
+     
+          <thead
+            class="bg-gradient-to-r from-orange-400 to-orange-300 text-black"
+          >
+            <tr>
+              <th
+                *ngFor="let heading of tableHeader"
+                class="px-3 py-1 text-left font-semibold border-b border-[var(--form-border)]"
               >
-                Save
-              </button>
-              <button (click)="cancelEdit(item)" class="btn btn-danger">
-                Close
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-      <tbody *ngIf="noRecordfound">
-        <tr>
-          <td colspan="12" *ngIf="noCloseLoopData">
-            <div class="controlRange-showloading">
-              <app-apploader></app-apploader>
-            </div>
-          </td>
-          <td colspan="12" *ngIf="!noCloseLoopData">
-            <p class="controlRange-data-not-found">
-              {{
-                dataNotFound
-                  ? "No Record Found for " + payload.Plant_Code
-                  : "No Record Found"
-              }}
-            </p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                {{ heading }}
+              </th>
+            </tr>
+          </thead>
+
+
+          <tbody *ngIf="!noRecordfound">
+
+            <tr
+              *ngFor="let item of iotData; let i = index"
+              class="border-b border-[var(--form-border)]"
+            >
+              <td class="px-2 py-2 text-center">
+                {{ i + 1 }}
+              </td>
+              <td class="px-2 py-2">
+                {{ item.Plant_Full_Name }}
+              </td>
+              <td class="px-2 py-2">
+                {{ item.Parameter_Name }}
+              </td>
+              <td class="px-2 py-2">
+
+                <span *ngIf="!item.editMode">
+                  {{ item.Step_Size_Min }}
+                </span>
+
+                <input
+                  *ngIf="item.editMode"
+                  type="text"
+                  [(ngModel)]="item.Step_Size_Min"
+                  class="w-full px-2 py-1 border rounded-md border-[var(--form-border)] bg-[var(--input-bg)]"
+                  (input)="validateMinValue(item)"
+                />
+
+                <div *ngIf="item.errorStepMinMessage" class="text-red-500 text-xs mt-1">
+                  {{ item.errorStepMinMessage }}
+                </div>
+
+              </td>
+
+              <td class="px-2 py-2">
+
+                <span *ngIf="!item.editMode">
+                  {{ item.Step_Size_Max }}
+                </span>
+
+                <input
+                  *ngIf="item.editMode"
+                  type="text"
+                  [(ngModel)]="item.Step_Size_Max"
+                  class="w-full px-2 py-1 border rounded-md border-[var(--form-border)] bg-[var(--input-bg)]"
+                  (input)="validateMaxValue(item)"
+                />
+
+                <div *ngIf="item.errorStepMaxMessage" class="text-red-500 text-xs mt-1">
+                  {{ item.errorStepMaxMessage }}
+                </div>
+
+              </td>
+
+              <td class="px-2 py-2">
+
+                <span *ngIf="!item.editMode">
+                  {{ item.Operating_Min }}
+                </span>
+
+                <input
+                  *ngIf="item.editMode"
+                  type="text"
+                  [(ngModel)]="item.Operating_Min"
+                  class="w-full px-2 py-1 border rounded-md border-[var(--form-border)] bg-[var(--input-bg)]"
+                  (input)="validateOptMinValue(item)"
+                />
+
+                <div *ngIf="item.errorOpMinMessage" class="text-red-500 text-xs mt-1">
+                  {{ item.errorOpMinMessage }}
+                </div>
+
+              </td>
+
+              
+              <td class="px-2 py-2">
+
+                <span *ngIf="!item.editMode">
+                  {{ item.Operating_Max }}
+                </span>
+
+                <input
+                  *ngIf="item.editMode"
+                  type="text"
+                  [(ngModel)]="item.Operating_Max"
+                  class="w-full px-2 py-1 border rounded-md border-[var(--form-border)] bg-[var(--input-bg)]"
+                  (input)="validateOptMaxValue(item)"
+                />
+
+                <div *ngIf="item.errorOpMaxMessage" class="text-red-500 text-xs mt-1">
+                  {{ item.errorOpMaxMessage }}
+                </div>
+
+              </td>
+
+             
+              <td class="px-2 py-2">
+
+                <span *ngIf="!item.editMode">
+                  {{ item.Failure_Min }}
+                </span>
+
+                <input
+                  *ngIf="item.editMode"
+                  type="text"
+                  [(ngModel)]="item.Failure_Min"
+                  class="w-full px-2 py-1 border rounded-md border-[var(--form-border)] bg-[var(--input-bg)]"
+                  (input)="validateFailMinValue(item)"
+                />
+
+                <div *ngIf="item.errorFminMessage" class="text-red-500 text-xs mt-1">
+                  {{ item.errorFminMessage }}
+                </div>
+
+              </td>
+
+            
+              <td class="px-2 py-2">
+
+                <span *ngIf="!item.editMode">
+                  {{ item.Failure_Max }}
+                </span>
+
+                <input
+                  *ngIf="item.editMode"
+                  type="text"
+                  [(ngModel)]="item.Failure_Max"
+                  class="w-full px-2 py-1 border rounded-md border-[var(--form-border)] bg-[var(--input-bg)]"
+                  (input)="validateFailMaxValue(item)"
+                />
+
+                <div *ngIf="item.errorFmaxMessage" class="text-red-500 text-xs mt-1">
+                  {{ item.errorFmaxMessage }}
+                </div>
+
+              </td>
+
+             
+              <td class="px-2 py-2 text-center">
+
+                
+                <button
+                  *ngIf="!item.editMode"
+                  class="px-4 py-1 rounded-md bg-orange-500 text-white hover:bg-orange-600 transition"
+                  (click)="toggleEditMode(item)"
+                >
+                  Edit
+                </button>
+
+                
+                <div *ngIf="item.editMode" class="flex gap-2 justify-center">
+
+                  <button
+                    (click)="saveChanges(item)"
+                    class="px-3 py-1 rounded-md bg-green-500 text-white hover:bg-green-600"
+                    [disabled]="!item.valid"
+                  >
+                    Save
+                  </button>
+
+                  <button
+                    (click)="cancelEdit(item)"
+                    class="px-3 py-1 rounded-md bg-red-500 text-white hover:bg-red-600"
+                  >
+                    Close
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+      
+          <tbody *ngIf="noRecordfound">
+
+            <tr>
+
+              <td colspan="12" *ngIf="noCloseLoopData">
+
+                <div class="flex justify-center py-10">
+                  <app-apploader></app-apploader>
+                </div>
+
+              </td>
+
+              <td colspan="12" *ngIf="!noCloseLoopData">
+
+                <div class="flex justify-center py-10 text-gray-500">
+                  {{
+                    dataNotFound
+                      ? "No Record Found for " + payload.Plant_Code
+                      : "No Record Found"
+                  }}
+                </div>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
   </div>
+
 </div>

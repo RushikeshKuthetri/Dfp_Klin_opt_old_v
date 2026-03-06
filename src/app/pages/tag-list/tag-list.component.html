@@ -1,84 +1,127 @@
+<div class="w-full">
 
-<div class="container-fluid">
-    
-    <div class="card card_apply" >
-        <div class="card-body pt-1">
-            <div id="style-yRrfL" class="style-yRrfL">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <app-filters type="rangepicker" [filtersData]='payload' [showRange]="false"  *ngIf="payload" (filterData)="onChangeFilter($event)"></app-filters>
-                    </div>
-                </div>
-                <div class="mat-elevation-z8 style-qG6n4" id="style-qG6n4">
-                    <div [hidden]="!flags.showLoader">
-                        <app-loader></app-loader>
-                    </div>
-                    <div class="example-container">
-                        <div class="row">
-                            <div class="col-sm-3">
+     <h5 class="text-[18px] font-semibold text-[var(--title)] mb-4">
+    Tag List
+  </h5> 
 
-                                <div class="d-flex ">
+  <!-- inputs -->
+  <div class="rounded-xl border border-[var(--form-border)] px-4 py-3 mb-4" *ngIf="payload">
+    <app-filters
+      type="rangepicker"
+      [filtersData]="payload"
+      [showRange]="false"
+      (filterData)="onChangeFilter($event)">
+    </app-filters>
+  </div>
 
-                                    <!-- <label class="mb-2 dropdownTitle">Parameter</label> -->
+  <div class="rounded-lg">
 
-                                    <select class="form-select d-none" [(ngModel)]="selectedOption" (change)="getAlertParamterDropDown($event)">
-
-                                        <!-- <option [value]='null' [disabled]="selectedOption === null">--Select Parameter Here--</option> -->
-                                        <option value='All'>ALL</option>
-                                        <option *ngFor="let data of alertparameterDropDownData" [value]="data.Tag_Id">{{data.UI_Display_Name?data.UI_Display_Name:data.Generic_Description}}</option>
-
-                                       
-
-                                    </select>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-sm-9 d-flex justify-content-end" [hidden]="disturbanceDataSource.length==0">
-
-                                <mat-paginator [length]="100" [pageSize]="10" #paginator [hidden]="disturbanceDataSource.length==0"
-
-                                    [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
-
-                                </mat-paginator>
-
-                                <a (click)="downloadAlertData()" [hidden]="disturbanceDataSource.length==0">
-
-                                    <span class="material download material-symbols-outlined">
-
-                                        download
-
-                                    </span>
-
-                                </a>
-
-                            </div>
-                        </div>
-
-                        <table mat-table  matSort (matSortChange)="sortData($event)" [dataSource]="dataSource" [hidden]="disturbanceDataSource.length==0">
-                            <ng-container [matColumnDef]="item" *ngFor="let item of keysList;let i=index">
-                                <th mat-header-cell [mat-sort-header]="item" *matHeaderCellDef>{{displayedColumn[i]}}</th>
-                                <!-- <td mat-cell *matCellDef="let element"> 
-                                    <ng-container>
-                                        {{element[item]?element[item].toFixed(2):'N/A'}}
-                                    </ng-container>
-                                </td> -->
-                                <td mat-cell *matCellDef="let element"> {{element[item]?element[item]:'N/A'}} </td>
-                            </ng-container>
-                            <tr mat-header-row *matHeaderRowDef="keysList"></tr>
-                            <tr mat-row *matRowDef="let row; columns: keysList;"></tr>
-                        </table>
-                    </div>
-                    <div class="noDataBox" [hidden]="disturbanceDataSource.length!==0">
-                        <span class="text-center">No Data Found</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
+ 
+    <div *ngIf="flags.showLoader" class="flex justify-center items-center py-10">
+      <app-loader></app-loader>
     </div>
-    
-</div>
+
+  
+    <div *ngIf="!flags.showLoader">
+
+      
+      <div
+        class="flex items-center justify-end mb-4"
+        *ngIf="disturbanceDataSource.length !== 0"
+      >
+
+        <!-- pagination -->
+        <div class="text-[var(--text-color)] flex items-center gap-4 rounded-md">
+          <mat-paginator
+            [length]="100"
+            [pageSize]="10"
+            #paginator
+            [pageSizeOptions]="[5,10,25,100]"
+            aria-label="Select page">
+          </mat-paginator>
+        </div>
+
+      
+        <button
+          (click)="downloadAlertData()"
+          class="flex items-center justify-center
+          text-[var(--text-color)]
+          hover:text-[var(--accent-color)]
+          transition-colors duration-200 ml-3"
+        >
+          <span class="material-symbols-outlined text-[22px]">
+            download
+          </span>
+        </button>
+
+      </div>
+
+     
+      <div
+        class="overflow-x-auto rounded-lg border border-[var(--form-border)]"
+        *ngIf="disturbanceDataSource.length !== 0"
+      >
+
+        <table
+          mat-table
+          matSort
+          (matSortChange)="sortData($event)"
+          [dataSource]="dataSource"
+          class="min-w-full"
+        >
+
         
-    
+          <ng-container
+            [matColumnDef]="item"
+            *ngFor="let item of keysList; let i=index"
+          >
+
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              [mat-sort-header]="item"
+              class="px-4 py-3 text-left font-semibold text-black"
+            >
+              {{displayedColumn[i]}}
+            </th>
+
+            <td
+              mat-cell
+              *matCellDef="let element"
+              class="px-4 py-2 border-b text-sm text-[var(--text-color)]"
+            >
+              {{element[item] ? element[item] : 'N/A'}}
+            </td>
+
+          </ng-container>
+
+          
+          <tr
+            mat-header-row
+            *matHeaderRowDef="keysList"
+            class="!bg-orange-400 text-black"
+          ></tr>
+
+          <tr
+            mat-row
+            *matRowDef="let row; columns: keysList"
+            class="hover:bg-[var(--table-hover)] transition"
+          ></tr>
+
+        </table>
+
+      </div>
+
+     
+      <div
+        class="flex justify-center items-center py-10 text-gray-500"
+        *ngIf="disturbanceDataSource.length === 0"
+      >
+        No Data Found
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

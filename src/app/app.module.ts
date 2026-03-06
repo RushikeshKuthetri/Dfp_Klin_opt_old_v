@@ -62,6 +62,7 @@ import { ControlCloserangeComponent } from './pages/control-closerange/control-c
 import { environment } from '../environments/environment';
 import { FooterComponent } from './common/footer/footer.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
+import { SearchbarComponent } from './common/searchbar/searchbar.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,7 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
     RecommendationsListComponent,
     
     FiltersComponent,
-
+    SearchbarComponent,
 
     HeaderComponent,
     SidebrComponent,
