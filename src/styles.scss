@@ -1,6 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+/* Importing Bootstrap SCSS file. */
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
  
 body {
   font-family: var(--font-inter);
