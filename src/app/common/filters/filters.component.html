@@ -1,14 +1,14 @@
-<form #myForm="ngForm" class="w-full rounded-[18px]  px-6 py-2">
-  <div class="grid grid-cols-1 gap-x-6 gap-y-2 items-center md:grid-cols-2 xl:grid-cols-3 justify-center">
-    <div class="flex flex-col">
-      <label class="mb-2 text-[13px] font-semibold uppercase tracking-[0.02em] text-[#8791a0]">
+<form #myForm="ngForm" class="w-full rounded-[18px] px-2.5">
+<div class="grid grid-cols-[1fr_1fr_1fr_0.1fr_auto] gap-x-6 justify-center items-end">
+    <div class="flex flex-col mb-2">
+      <label class=" text-[13px] font-semibold uppercase tracking-[0.02em] text-[var(--text-color)]">
         PLANT <span class="text-[#ff4d4f]">*</span>
       </label>
-      <select class="w-full min-h-[29px] px-3 text-[13px] rounded-lg 
+      <select class="w-full min-h-[29px] px-2 text-[13px] rounded-lg 
          bg-[var(--input-enable-bg)] 
          border border-[var(--input-enable-border)]
          text-[var(--select-input-value)]
-         outline-none
+         outline-none 
          focus:border-[#888888]
          cursor-pointer
          transition-all duration-200" name="filtersData.Plant_Code" [(ngModel)]="filtersData.Plant_Code"
@@ -21,15 +21,15 @@
       </select>
     </div>
 
-    <div class="flex flex-col">
-      <label class="mb-2 text-[13px] font-semibold uppercase tracking-[0.02em] text-[#8791a0]">
+    <div class="flex flex-col mb-2">
+      <label class=" text-[13px] font-semibold uppercase tracking-[0.02em] text-[var(--text-color)]">
         KILN NO <span class="text-[#ff4d4f]">*</span>
       </label>
-      <select class="w-full min-h-[29px] px-3 text-[13px] rounded-lg
+      <select class="w-full min-h-[29px] px-2 text-[13px] rounded-lg
          bg-[var(--input-enable-bg)]
          border border-[var(--input-enable-border)]
          text-[var(--select-input-value)]
-         outline-none
+         outline-none 
          focus:border-[#888888]
          transition-all duration-200
          cursor-pointer" name="filtersData.Mill" [(ngModel)]="filtersData.Mill" (change)="getGradeBasesPlantMills()"
@@ -44,7 +44,7 @@
 
     <div class="flex flex-col">
       <div *ngIf="type=='rangepicker'">
-        <label class="mb-2 text-[13px] font-semibold uppercase tracking-[0.02em] text-[#8791a0]">
+        <label class="mb-2 text-[13px] font-semibold uppercase tracking-[0.02em] text-[var(--text-color)]">
           DATE RANGE <span class="text-[#ff4d4f]">*</span>
         </label>
         <app-datetimepicker class="block w-full" [type]='type' *ngIf="filtersData"
@@ -68,7 +68,7 @@
       </div>
     </div>
 
-    <div class="col-span-1 mt-1 flex justify-center md:col-span-2 xl:col-span-3">
+    <div class=" flex justify-start pb-[4px]">
       <button type="button"
         class="px-4 py-1 rounded-md border border-[var(--button-border)] bg-[var(--submit-button-bg)] hover:bg-[var(--submit-button-hover-bg)] text-[#111111] font-medium transition-all duration-200 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed active:scale-95"
         [disabled]="!myForm.valid || filtersData.Plant_Code==='null' || filtersData.Mill==='null'" (click)="onSubmit()">

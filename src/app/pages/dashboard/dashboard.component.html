@@ -1,25 +1,26 @@
-<div class="w-full">
 
-   <h5 class="text-[18px] font-semibold text-[var(--title)] mb-4">
+   <h5 class="text-[18px] font-semibold text-[var(--title)] mb-2 ml-2 ">
     Performance Dashboard
   </h5>
+<div class="w-full rounded-xl border border-[var(--form-border)]">
+
 
   <!-- Filters inputs plant no , klin no and daterange -->
-  <div class="rounded-xl border border-[var(--form-border)] px-4 py-3">
+  <div class=" py-2">
     <app-filters [filtersData]="payload" [filtersDate]="recommendationDate" type="datepicker"
       (filterData)="onChangeFilter($event)"></app-filters>
   </div>
 
   <!-- loader -->
-  <div *ngIf="flags.showLoader" class="flex justify-center items-center mx-auto h-[60vh]">
+  <div *ngIf="flags.showLoader" class="flex justify-center items-center ">
     <app-loader></app-loader>
   </div>
 
-  <div class="w-full mt-6 space-y-6" [hidden]="true && cardflag && linechart && barcharflag && pieChartflag">
+  <div class="w-full m-2 px-2  space-y-6" [hidden]="true && cardflag && linechart && barcharflag && pieChartflag">
 
     <!--  CARDS -->
 
-    <div class="bg-[var(--card-bg)] border border-[var(--form-border)] rounded-lg p-6" [hidden]="visibleCard">
+    <div class="bg-[var(--card-bg)] border border-[var(--form-border)] rounded-lg p-2" [hidden]="visibleCard">
 
       <!-- code for recommendationsList and alert list cards -->
 
@@ -62,7 +63,7 @@
 
     <div *ngIf="!visibleThroughput">
 
-      <div class="bg-[var(--card-bg)] border border-[var(--form-border)] rounded-lg p-6" *ngIf="!linechart">
+      <div class="bg-[var(--card-bg)] border border-[var(--form-border)] rounded-lg p-2" *ngIf="!linechart">
 
         <div class="flex justify-between items-center mb-4">
 
@@ -98,7 +99,7 @@
 
       <div class="bg-[var(--card-bg)] border border-[var(--form-border)] rounded-lg p-6" [hidden]="visibleWeekCount">
 
-        <div class="text-lg font-semibold text-color mb-4">
+        <div class="text-lg font-semibold text-color mb-4 text-[var(--text-color)]">
           Weekly Alarm Counts
         </div>
 

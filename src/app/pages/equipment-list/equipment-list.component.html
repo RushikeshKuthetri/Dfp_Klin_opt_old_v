@@ -1,11 +1,18 @@
-<div class="w-full">
+  <div class="flex justify-between items-center">
+     <h5 class="text-[18px] font-semibold text-[var(--title)] mb-2 ml-2">
+    Equipment
+  </h5>
 
-    <h5 class="text-[18px] font-semibold text-[var(--title)] mb-4">
-    Equipment List
-  </h5> 
+    <app-searchbar></app-searchbar>
+
+  </div>
+
+ 
+<div class="w-full">
+  <div class="border border-[var(--form-border)] rounded-lg">
 
   <!-- input filters plant ,kln no and date picker -->
-  <div class="rounded-xl border border-[var(--form-border)] px-4 py-3 mb-2" *ngIf="payload">
+  <div class="rounded-xl  " *ngIf="payload">
     <app-filters
       type="rangepicker"
       [filtersData]="payload"
@@ -23,29 +30,11 @@
     </div>
 
    
-    <div *ngIf="!flags.showLoader">
-
-    
-      <div class="flex items-center justify-end mb-2" *ngIf="equipmentDataSource.length !== 0">
-
-        <div class="text-[var(--text-color)] flex items-center gap-4 justify-center rounded-md">
-          <mat-paginator
-            [length]="100"
-            [pageSize]="10"
-            #paginator
-            [pageSizeOptions]="[5,10,25,100]"
-            aria-label="Select page">
-          </mat-paginator>
-        </div>
-
-      </div>
-
-      
+    <div *ngIf="!flags.showLoader" class="px-2">  
       <div
-        class="overflow-x-auto  rounded-lg border border-[var(--form-border)] max-h-[470px] "
+        class="overflow-x-auto  rounded-lg border border-[var(--form-border)] max-h-[320px] custom-scrollbar"
         *ngIf="equipmentDataSource.length !== 0"
       >
-
         <table
           mat-table
           matSort
@@ -63,7 +52,7 @@
               mat-header-cell
               *matHeaderCellDef
               [mat-sort-header]="item"
-              class="px-4 py-3 text-left font-semibold text-black"
+              class="px-4 py-2 text-left font-semibold text-black"
             >
               {{displayedColumn[i]}}
             </th>
@@ -93,6 +82,7 @@
           ></tr>
 
         </table>
+        
 
       </div>
 
@@ -103,9 +93,22 @@
       >
         No Data Found
       </div>
+      <div class="flex items-center justify-end  " *ngIf="equipmentDataSource.length !== 0">
+
+        <div class="text-[var(--text-color)] text-[14px] flex items-end gap-4 justify-end rounded-md">
+          <mat-paginator
+            [length]="100"
+            [pageSize]="10"
+            #paginator
+            [pageSizeOptions]="[5,10,25,100]"
+            aria-label="Select page">
+          </mat-paginator>
+        </div>
+
+      </div>
 
     </div>
 
   </div>
-
+</div>
 </div>

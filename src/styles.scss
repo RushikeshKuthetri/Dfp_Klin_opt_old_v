@@ -71,6 +71,7 @@ body {
   --title: #ffc07a;
   --bg-color: #1E1E1F;
   --accent-color: #60a5fa;
+   --bg-header: #181919;
   --header-shadow: 0 2px 6px rgba(255, 255, 255, 0.25);
   --leftdrawer-text:#B7C5C5;
   --bg-leftdrawer: #181919;
@@ -805,23 +806,125 @@ body {
 }
 
 /* Modal theme + width */
-.modal-content {
-  background-color: var(--card-bg) !important;
-  color: var(--text-color) !important;
-  border: 1px solid var(--form-border) !important;
+// .modal-content {
+//   background-color: var(--card-bg) !important;
+//   color: var(--text-color) !important;
+//   border: 1px solid var(--form-border) !important;
+// }
+
+// .modal-header,
+// .modal-body,
+// .modal-footer {
+//   background-color: var(--card-bg) !important;
+//   color: var(--text-color) !important;
+//   border-color: var(--form-border) !important;
+// }
+
+/* Fix for extra spacing caused by Angular CDK announcer/descriptor */
+.cdk-live-announcer-element,
+.cdk-describedby-message-container {
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.modal-header,
-.modal-body,
-.modal-footer {
-  background-color: var(--card-bg) !important;
-  color: var(--text-color) !important;
-  border-color: var(--form-border) !important;
+/* Fix for Material overlay (dropdown menus, select panels) causing layout shift */
+.cdk-overlay-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 1000 !important;
 }
 
-.recommendation-modal .modal-dialog {
-  width: min(96vw, 1700px) !important;
-  max-width: min(96vw, 1700px) !important;
-  margin: 1rem auto !important;
+.cdk-overlay-pane {
+  pointer-events: auto !important;
+  position: fixed !important;
 }
+
+.cdk-overlay-connected-position-bounding-box {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  pointer-events: none;
+}
+
+.cdk-overlay-backdrop {
+  position: fixed !important;
+  pointer-events: none;
+}
+
+.cdk-overlay-backdrop-showing {
+  pointer-events: auto !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+/* Ensure Material select panel has proper background */
+
+// css for the select menu from the bootstrap 
+
+.custom-select-field .mat-mdc-text-field-wrapper {
+  background: var(--input-enable-bg);
+  border-radius: 8px;
+  min-height: 29px;
+}
+
+/* Border styling */
+.custom-select-field .mdc-notched-outline__leading,
+.custom-select-field .mdc-notched-outline__notch,
+.custom-select-field .mdc-notched-outline__trailing {
+  border-color: var(--input-enable-border) !important;
+}
+
+/* Focus border */
+.custom-select-field.mat-focused .mdc-notched-outline__leading,
+.custom-select-field.mat-focused .mdc-notched-outline__notch,
+.custom-select-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: var(--input-enable-border);
+}
+
+/* Value text */
+.custom-select-field .mat-mdc-select-value {
+  color: var(--select-input-value);
+  font-size: 13px;
+}
+
+/* Dropdown arrow */
+.custom-select-field .mat-mdc-select-arrow {
+  color: var(--search-placeholder);
+}
+
+/* Dropdown panel */
+.mat-mdc-select-panel {
+  background: var(--input-enable-bg) !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--input-enable-border);
+}
+
+/* Options */
+.mat-mdc-option {
+  font-size: 13px;
+  color: var(--select-input-value);
+}
+
+/* Hover option */
+.mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+  background: var(--select-input-hover) ;
+}
+
+/* Selected option */
+.mat-mdc-option.mdc-list-item--selected {
+  background: var(--select-input) ;
+}
+.mat-mdc-select-panel {
+  background-color: var(--card-bg) ;
+  color: var(--text-color) ;
+}
+
+
+
+
+
 

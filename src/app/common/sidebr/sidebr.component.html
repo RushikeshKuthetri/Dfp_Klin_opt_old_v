@@ -4,7 +4,7 @@
   <button *ngIf="!open" class="lg:hidden fixed top-20 left-4 z-50 p-2 rounded-lg bg-[var(--bg-leftdrawer)] shadow"
     (click)="openChange.emit(true)">
     <!-- Bars icon -->
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[var(--text-color)]" fill="currentColor" viewBox="0 0 20 20">
       <path fill-rule="evenodd"
         d="M3 5h14a1 1 0 010 2H3a1 1 0 010-2zm0 4h14a1 1 0 010 2H3a1 1 0 010-2zm0 4h14a1 1 0 010 2H3a1 1 0 010-2z"
         clip-rule="evenodd" />
@@ -12,15 +12,22 @@
   </button>
 
   <!-- ── BACKDROP (mobile) ────────────────────────────────────── -->
-  <div *ngIf="open" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-30 lg:hidden" (click)="closeMobile()"></div>
+  <div *ngIf="open" class="fixed inset-0 bg-[var(--bg-color)] backdrop-blur-sm z-30 lg:hidden" (click)="closeMobile()"></div>
 
   <!-- ══════════════════════════════════════════════════════════ -->
   <!-- SIDEBAR                                                    -->
   <!-- ══════════════════════════════════════════════════════════ -->
-  <div class="fixed top-18 left-0 z-40 h-[calc(100dvh-96px)] overflow-y-auto flex flex-col rounded-r-3xl
-       bg-[var(--bg-leftdrawer)] shadow-xl
-       transition-all duration-300" [class.lg:w-20]="collapsed" [class.lg:w-60]="!collapsed" [class.w-60]="true"
-    [class.translate-x-0]="open" [class.-translate-x-full]="!open" [class.lg:translate-x-0]="true">
+   <div
+    class="fixed  left-0 z-40 h-[calc(100dvh-105px)] overflow-y-auto flex flex-col rounded-r-3xl
+           bg-[var(--bg-leftdrawer)] [box-shadow:var(--left-drawer-shadow)]
+           transition-all duration-300"
+    [class.lg:w-20]="collapsed"
+    [class.lg:w-60]="!collapsed"
+    [class.w-60]="true"
+    [class.translate-x-0]="open"
+    [class.-translate-x-full]="!open"
+    [class.lg:translate-x-0]="true"
+  >
 
     <!-- ── MOBILE CLOSE BUTTON ─────────────────────────────── -->
     <div class="lg:hidden flex justify-end pt-3 pr-3 -mb-2">
@@ -34,7 +41,7 @@
     </div>
 
     <!-- ── MENU LIST ────────────────────────────────────────── -->
-    <div class="flex-1 overflow-y-auto flex flex-col px-3 gap-1 mt-2">
+    <div class="flex-1 overflow-y-auto custom-scrollbar flex flex-col px-3 gap-1 mt-2">
 
       <ng-container *ngFor="let item of menuItems; let i = index">
         <div>

@@ -1,11 +1,20 @@
 <div class="w-full">
 
-     <h5 class="text-[18px] font-semibold text-[var(--title)] mb-4">
+   <div class="flex justify-between items-center">
+
+      <h5 class="text-[18px] font-semibold text-[var(--title)] mb-2 ml-2">
     Tag List
-  </h5> 
+  </h5>
+    <app-searchbar></app-searchbar>
+
+   </div>
+
+    
+
+  <div class="border border-[var(--form-border)] rounded-lg">
 
   <!-- inputs -->
-  <div class="rounded-xl border border-[var(--form-border)] px-4 py-3 mb-4" *ngIf="payload">
+  <div class="rounded-xl mb-4" *ngIf="payload">
     <app-filters
       type="rangepicker"
       [filtersData]="payload"
@@ -22,7 +31,7 @@
     </div>
 
   
-    <div *ngIf="!flags.showLoader">
+    <div *ngIf="!flags.showLoader" class="px-2 mb-2">
 
       
       <div
@@ -58,7 +67,7 @@
 
      
       <div
-        class="overflow-x-auto  rounded-lg border border-[var(--form-border)]"
+        class="overflow-x-auto  rounded-lg border border-[var(--form-border)] h-[470px] custom-scrollbar"
         *ngIf="disturbanceDataSource.length !== 0"
       >
 
@@ -67,7 +76,7 @@
           matSort
           (matSortChange)="sortData($event)"
           [dataSource]="dataSource"
-          class="min-w-full overflow-y-auto"
+          class="min-w-full overflow-y-auto "
         >
 
         
@@ -80,7 +89,7 @@
               mat-header-cell
               *matHeaderCellDef
               [mat-sort-header]="item"
-              class="px-4 py-3 text-left font-semibold text-black"
+              class="px-4 py-2 text-left font-semibold text-black"
             >
               {{displayedColumn[i]}}
             </th>
@@ -98,7 +107,7 @@
           
           <tr
             mat-header-row
-            *matHeaderRowDef="keysList"
+            *matHeaderRowDef="keysList; sticky: true"
             class="!bg-orange-400 text-black"
           ></tr>
 
@@ -121,6 +130,8 @@
       </div>
 
     </div>
+
+  </div>
 
   </div>
 

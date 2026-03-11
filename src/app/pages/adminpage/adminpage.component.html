@@ -1,23 +1,29 @@
-<div class="bg-[var(--bg-main-container)] text-[var(--text-color)]">
-   <h5 class="text-[18px] font-semibold text-[var(--title)] mb-4">
+ 
+  <div class="flex justify-between items-center">
+<h5 class="text-[18px] font-semibold text-[var(--title)] mb-2 ml-2">
     Admin Page
   </h5> 
+  <app-searchbar></app-searchbar>
+  </div>
+ 
+<div class="bg-[var(--bg-main-container)] text-[var(--text-color)] px-1">
+  
 
-  <div class="w-full mx-auto space-y-5">
+  <div class="w-full  space-y-5">
 
 
     <div class="bg-[var(--card-bg)]
-                rounded-2xl
+                rounded-lg
                 border border-[var(--form-border)]
                 shadow-sm
-                overflow-hidden">
+                overflow-hidden  custom-scrollbar ">
 
-      <div class="overflow-x-auto">
+      <div class="overflow-x-auto max-h-screen ">
 
         <table class="w-full text-sm overflow-y-auto">
 
          
-          <thead class="bg-gradient-to-r from-orange-400 to-orange-300 text-black">
+          <thead class="bg-gradient-to-r from-orange-400 to-orange-300 text-black py-2">
             <tr>
               <th class="text-left px-6 py-2 font-semibold border-b border-[var(--form-border)]">Plant Name</th>
               <th class="text-left px-6 py-2 font-semibold border-b border-[var(--form-border)]">Plant</th>
@@ -118,7 +124,7 @@
               <td colspan="7" *ngIf="!noCloseLoopData">
 
                 <div class="flex justify-center py-10 text-gray-500">
-                  {{ dataNotFound ? 'No Record Found for ' + jsonKiln.Plant_Code : 'No Record Found' }}
+                  {{ dataNotFound ? 'No Record Found'  : 'No Record Found' }}
                 </div>
 
               </td>

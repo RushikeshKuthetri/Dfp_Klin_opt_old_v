@@ -63,6 +63,9 @@ import { environment } from '../environments/environment';
 import { FooterComponent } from './common/footer/footer.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { SearchbarComponent } from './common/searchbar/searchbar.component';
+// datepicker imports
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 @NgModule({
   declarations: [
@@ -105,6 +108,7 @@ import { SearchbarComponent } from './common/searchbar/searchbar.component';
   ],
   imports: [
     ChartModule,
+    MatNativeDateModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,

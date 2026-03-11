@@ -1,132 +1,130 @@
-<div class="w-full">
+<div class="w-full ">
 
+  <div class="flex justify-between items-center">
 
-  <h5 class="text-[18px] font-semibold text-[var(--title)] mb-4">
-    Recommendation List
-  </h5>
+    <h5 class="text-[18px] font-semibold text-[var(--title)] mb-2 ml-2">
+      Recommendation
+    </h5>
 
-  <!-- Filters -->
-  <div class="rounded-xl border border-[var(--form-border)] px-4 py-3" *ngIf="payload">
-    <app-filters type="rangepicker" [filtersData]="payload" [showRange]="false" (filterData)="onChangeFilter($event)">
-    </app-filters>
+    <app-searchbar></app-searchbar>
+
   </div>
 
-
-  <div class=" rounded-lg ">
-
-    <!-- loader -->
-    <div *ngIf="flags.showLoader" class="flex  justify-center items-center py-10">
-      <app-loader></app-loader>
-    </div>
+  <div class="border border-[var(--form-border)] rounded-lg">
 
 
-    <div *ngIf="!flags.showLoader">
+    <div class="flex flex-wrap">
 
+      <!-- Filters (Plant, Kiln, Date Range, Submit) -->
+      <div *ngIf="payload" class="flex-1">
+        <app-filters type="rangepicker" [filtersData]="payload" [showRange]="false"
+          (filterData)="onChangeFilter($event)">
+        </app-filters>
+      </div>
 
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-
-
-        <div class="w-full md:w-[250px] mt-3">
-          <select class="w-full min-h-[29px] px-3 text-[13px] rounded-lg
+      <!-- ALL dropdown -->
+      <div class="flex flex-col  pr-3  py-2">
+        <label class="mb-2 text-[13px] font-semibold uppercase tracking-[0.02em] text-[var(--text-color)]">
+          Parameter
+        </label>
+        <select class="min-h-[29px] px-3 text-[13px] rounded-lg w-[180px]
          bg-[var(--input-enable-bg)]
          border border-[var(--input-enable-border)]
          text-[var(--select-input-value)]
          outline-none
-         focus:border-[#888888]
          transition-all duration-200
          cursor-pointer" [(ngModel)]="selectedOption" (change)="getRecommandParamterDropDown($event)">
-            <option value="All">ALL</option>
-            <option *ngFor="let data of parameterDropDownData" [value]="data.Tag_Id">
-              {{data.UI_Display_Name ? data.UI_Display_Name : data.Generic_Description}}
-            </option>
-          </select>
+          <option value="All">ALL</option>
+          <option *ngFor="let data of parameterDropDownData" [value]="data.Tag_Id">
+            {{data.UI_Display_Name ? data.UI_Display_Name : data.Generic_Description}}
+          </option>
+        </select>
+      </div>
+
+    </div>
+
+
+    <div class=" rounded-lg  px-2">
+
+      <!-- loader -->
+      <div *ngIf="flags.showLoader" class="flex  justify-center items-center py-10">
+        <app-loader></app-loader>
+      </div>
+
+
+      <div *ngIf="!flags.showLoader">
+
+
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-2">
+
+
+
+
+
+
+          <div class="flex w-full items-center justify-end gap-4 mb-1" *ngIf="recommendationDataSource.length !== 0">
+
+
+
+
+            <!-- download button-->
+            <button (click)="downloadRecommendationData()" class="flex items-center justify-center
+          text-[var(--text-color)]
+          hover:text-[var(--accent-color)]
+          transition-colors duration-200
+         dark:hover:text-blue-400">
+              <span class="material-symbols-outlined text-[22px]">
+                download
+              </span>
+            </button>
+
+          </div>
         </div>
 
-        <!-- Paginator + Download -->
-        <!-- <div
-          class="flex items-center gap-4 justify-end"
-          *ngIf="recommendationDataSource.length !== 0"
-        >
-          <mat-paginator
-            [length]="100"
-            [pageSize]="10"
-            #paginator
-            [pageSizeOptions]="[5, 10, 25, 100]"
+
+        <div class="overflow-x-auto  rounded-lg border border-[var(--form-border)]  max-h-[270px] custom-scrollbar mb-1"
+          *ngIf="recommendationDataSource.length !== 0">
+
+          <table mat-table matSort (matSortChange)="sortData($event)" [dataSource]="dataSource"
+            class="min-w-full  overflow-y-auto ">
+
+            <!-- columns from api -->
+            <ng-container [matColumnDef]="item" *ngFor="let item of keysList; let i=index">
+
+              <th mat-header-cell *matHeaderCellDef [mat-sort-header]="item"
+                class="px-2 py-2 text-left font-semibold text-black">
+                {{displayedColumn[i]}}
+              </th>
+
+              <td mat-cell *matCellDef="let element"
+                class=" text-center py-2 border-b text-sm text-[var(--text-color)]">
+                {{element[item] ? element[item] : 'N/A'}}
+              </td>
+
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="keysList ; sticky: true" class="!bg-orange-400 text-black">
+            </tr>
+
+
+            <tr mat-row *matRowDef="let row; columns: keysList;" class="hover:bg-[var(--table-hover)] transition">
+            </tr>
+
+          </table>
+        </div>
+        <div class="flex justify-center items-center py-10 text-gray-500" *ngIf="recommendationDataSource.length === 0">
+          No Data Found
+        </div>
+        <div class=" text-[var(--text-color)] flex items-end gap-4 justify-end rounded-md text-[14px]">
+          <mat-paginator [length]="100" [pageSize]="10" #paginator [pageSizeOptions]="[5, 10, 25, 100]"
             aria-label="Select page">
           </mat-paginator>
-
-          <button
-            (click)="downloadRecommendationData()"
-            class="text-[var(--text-color)] hover:text-blue-300 transition"
-          >
-            <span class="material-symbols-outlined text-[22px]">
-              download
-            </span>
-          </button>
-        </div> -->
-
-        <div class="flex mt-3 items-center gap-4 justify-end" *ngIf="recommendationDataSource.length !== 0">
-
-          <!-- pagination -->
-          <div class=" text-[var(--text-color)] flex items-center gap-4 justify-center rounded-md">
-            <mat-paginator [length]="100" [pageSize]="10" #paginator [pageSizeOptions]="[5, 10, 25, 100]"
-              aria-label="Select page">
-            </mat-paginator>
-          </div>
-
-          <!-- download button-->
-          <button (click)="downloadRecommendationData()" class="flex items-center justify-center
-           text-[var(--text-color)] mt-2
-           hover:text-[var(--accent-color)]
-           transition-colors duration-200
-           dark:hover:text-blue-400">
-            <span class="material-symbols-outlined text-[22px]">
-              download
-            </span>
-          </button>
-
         </div>
-      </div>
 
-
-      <div class="overflow-x-auto  rounded-lg border border-[var(--form-border)]"
-        *ngIf="recommendationDataSource.length !== 0">
-
-        <table mat-table matSort (matSortChange)="sortData($event)" [dataSource]="dataSource"
-          class="min-w-full  overflow-y-auto ">
-
-          <!-- columns from api -->
-          <ng-container [matColumnDef]="item" *ngFor="let item of keysList; let i=index">
-
-            <th mat-header-cell *matHeaderCellDef [mat-sort-header]="item"
-              class="px-2 py-3 text-left font-semibold text-black">
-              {{displayedColumn[i]}}
-            </th>
-
-            <td mat-cell *matCellDef="let element" class=" text-center py-2 border-b text-sm text-[var(--text-color)]">
-              {{element[item] ? element[item] : 'N/A'}}
-            </td>
-
-          </ng-container>
-
-
-          <tr mat-header-row *matHeaderRowDef="keysList" class="!bg-orange-400 text-black">
-          </tr>
-
-
-          <tr mat-row *matRowDef="let row; columns: keysList;" class="hover:bg-[var(--table-hover)] transition">
-          </tr>
-
-        </table>
-
-      </div>
-
-      <div class="flex justify-center items-center py-10 text-gray-500" *ngIf="recommendationDataSource.length === 0">
-        No Data Found
       </div>
 
     </div>
 
   </div>
-
 </div>
